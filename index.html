@@ -1,329 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>CBCS Sprint</title>
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CBCS Billing Readiness Sprint + Practice</title>
 <style>
-body{
-  margin:0;
-  font-family:Arial;
-  background:#0b0f1a;
-  color:white;
-}
-
-.container{
-  width:90%;
-  max-width:1100px;
-  margin:auto;
-  padding:20px;
-}
-
-/* NAV */
-.nav button{
-  padding:10px 15px;
-  border:none;
-  border-radius:20px;
-  margin-right:10px;
-  cursor:pointer;
-}
-.active{
-  background:#22d3ee;
-  color:black;
-}
-
-/* PAGES */
-.page{display:none}
-.page.active{display:block}
-
-/* FLASHCARDS */
-.card{
-  background:#1a2238;
-  padding:20px;
-  margin:10px;
-  border-radius:15px;
-  display:inline-block;
-  cursor:pointer;
-}
-
-/* PARTNER */
-.partner-box{
-  background:#12192e;
-  padding:15px;
-  margin-top:10px;
-  border-radius:10px;
-}
-
-/* PRACTICE LAYOUT */
-.practice{
-  display:flex;
-  gap:20px;
-  flex-wrap:wrap;
-}
-
-.left,.right{
-  flex:1;
-  min-width:300px;
-  background:#12192e;
-  padding:20px;
-  border-radius:15px;
-}
-
-/* QUESTION */
-.question{
-  color:gold;
-  font-size:20px;
-  font-weight:bold;
-}
-
-/* ANSWERS */
-.answer{
-  margin-top:10px;
-  padding:15px;
-  border:none;
-  border-radius:12px;
-  cursor:pointer;
-  width:100%;
-  font-weight:bold;
-}
-
-/* COLORS */
-.a{background:#f472b6}
-.b{background:#60a5fa}
-.c{background:#facc15}
-.d{background:#34d399}
-
-/* CORRECT GLOW */
-.correct-choice{
-  border:3px solid #00ff99;
-  animation:glow 1s infinite alternate;
-}
-
-@keyframes glow{
-  from{box-shadow:0 0 10px #00ff99;}
-  to{box-shadow:0 0 30px #00ff99;}
-}
-
-/* WRONG FADE */
-.wrong-choice{
-  border:3px solid red;
-  animation:fadeRed 1s forwards;
-}
-
-@keyframes fadeRed{
-  0%{box-shadow:0 0 25px red;}
-  100%{box-shadow:0 0 0px transparent;}
-}
-
-/* CONFETTI */
-#confetti div{
-  position:fixed;
-  width:8px;
-  height:8px;
-  top:0;
-  animation:fall 1s linear forwards;
-}
-
-@keyframes fall{
-  to{
-    transform:translateY(100vh) rotate(360deg);
-    opacity:0;
-  }
-}
-
-/* NEXT BUTTON */
-.next{
-  margin-top:20px;
-  padding:15px;
-  background:gold;
-  border:none;
-  border-radius:10px;
-  cursor:pointer;
-}
-
+:root{--bg:#070914;--text:#f4f7fb;--muted:#a8b3c7;--line:rgba(255,255,255,.13);--cyan:#22d3ee;--green:#34d399;--amber:#fbbf24;--rose:#fb7185;--purple:#a78bfa;--blue:#60a5fa;--pink:#f472b6;--orange:#fb923c;--gold:#f8d56b;--shadow:0 18px 50px rgba(0,0,0,.38);--radius:24px}
+*{box-sizing:border-box;margin:0;padding:0}body{min-height:100vh;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:radial-gradient(circle at 10% 10%,rgba(34,211,238,.18),transparent 28%),radial-gradient(circle at 90% 20%,rgba(167,139,250,.16),transparent 30%),radial-gradient(circle at 50% 90%,rgba(251,113,133,.12),transparent 32%),var(--bg);overflow-x:hidden}button{font-family:inherit}.shell{max-width:1180px;margin:0 auto;padding:24px 18px 80px}.topbar{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,rgba(7,9,20,.97),rgba(7,9,20,.82));backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}.topbar-inner{max-width:1180px;margin:0 auto;padding:14px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}.logo{font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--cyan);font-size:13px;display:flex;align-items:center;gap:10px}.logo-mark{width:34px;height:34px;border-radius:12px;display:grid;place-items:center;background:rgba(34,211,238,.14);border:1px solid rgba(34,211,238,.45)}.progress-wrap{flex:1;min-width:210px;display:flex;align-items:center;gap:10px}.progress-track{height:10px;flex:1;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;border:1px solid rgba(255,255,255,.07)}.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--cyan),var(--green),var(--amber));border-radius:999px;transition:.45s ease}.progress-label{font-size:12px;color:var(--muted);font-weight:800;min-width:78px;text-align:right}.nav{display:flex;gap:8px;flex-wrap:wrap}.nav-btn{border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--muted);padding:9px 13px;border-radius:999px;cursor:pointer;font-weight:800;font-size:12px;transition:.2s ease}.nav-btn.active{color:#071018;background:linear-gradient(135deg,var(--cyan),var(--green));border-color:transparent}.hero{margin-top:28px;padding:34px;border-radius:32px;border:1px solid rgba(255,255,255,.13);background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.035));box-shadow:var(--shadow);position:relative;overflow:hidden}.hero:before{content:"";position:absolute;inset:-90px auto auto -90px;width:240px;height:240px;border-radius:50%;background:rgba(34,211,238,.18);filter:blur(28px)}.badge{display:inline-flex;border:1px solid rgba(34,211,238,.35);background:rgba(34,211,238,.12);color:var(--cyan);padding:7px 12px;border-radius:999px;font-weight:900;font-size:12px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}h1{font-size:clamp(32px,5vw,58px);line-height:.98;letter-spacing:-.04em;margin-bottom:14px;max-width:840px}.subtitle{font-size:18px;color:var(--muted);max-width:880px;line-height:1.55;margin-bottom:22px}.teacher-note{font-size:14px;color:#dbeafe;background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.24);padding:14px 16px;border-radius:18px;line-height:1.55;margin-top:16px}.primary,.secondary,.next-question{border:0;border-radius:16px;padding:13px 18px;cursor:pointer;font-weight:900;font-size:15px;transition:.2s ease}.primary{color:#071018;background:linear-gradient(135deg,var(--cyan),var(--green));box-shadow:0 10px 28px rgba(34,211,238,.24)}.secondary{color:var(--text);background:rgba(255,255,255,.08);border:1px solid var(--line)}.next-question{color:#071018;background:linear-gradient(135deg,var(--gold),var(--orange));box-shadow:0 10px 28px rgba(251,191,36,.25);font-size:17px;padding:15px 24px}.primary:hover,.secondary:hover,.next-question:hover{transform:translateY(-2px)}.page{display:none;animation:rise .35s ease;margin-top:22px}.page.active{display:block}@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;flex-wrap:wrap;margin:28px 0 18px}h2{font-size:clamp(25px,3.5vw,40px);letter-spacing:-.03em}.hint{color:var(--muted);line-height:1.5;max-width:760px}.card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.flip-card{height:190px;perspective:1000px;cursor:pointer}.flip-inner{position:relative;width:100%;height:100%;transition:transform .55s;transform-style:preserve-3d}.flip-card.flipped .flip-inner{transform:rotateY(180deg)}.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--radius);padding:20px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.15);overflow:hidden}.face:after{content:"";position:absolute;right:-45px;bottom:-45px;width:115px;height:115px;border-radius:50%;background:rgba(255,255,255,.18)}.front{background:linear-gradient(135deg,var(--c),rgba(255,255,255,.08));color:#071018}.back{background:linear-gradient(135deg,rgba(20,27,50,.96),rgba(255,255,255,.06));transform:rotateY(180deg)}.card-num{font-weight:1000;opacity:.75;font-size:12px;text-transform:uppercase;letter-spacing:.08em}.term{font-size:25px;line-height:1.05;font-weight:1000;letter-spacing:-.03em;position:relative;z-index:1}.tap{font-size:12px;font-weight:900;opacity:.85;position:relative;z-index:1}.back p{color:#dbe4f3;font-size:15px;line-height:1.45;position:relative;z-index:1}.back strong{color:var(--c)}.partner-panel{margin-top:22px;border-radius:28px;padding:22px;background:linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.035));border:1px solid var(--line);box-shadow:var(--shadow)}.partner-head h3{font-size:24px;letter-spacing:-.02em;margin-bottom:8px}.partner-directions{color:var(--muted);line-height:1.5;max-width:820px}.partner-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.partner-check{border-radius:20px;padding:18px 16px 16px;background:rgba(255,255,255,.055);border:1px solid var(--line);color:#e8eefc;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden}.partner-check:before{content:"";position:absolute;inset:0 0 auto 0;height:7px;background:var(--pc)}.partner-check:nth-child(1){--pc:var(--cyan)}.partner-check:nth-child(2){--pc:var(--green)}.partner-check:nth-child(3){--pc:var(--amber)}.partner-check:nth-child(4){--pc:var(--purple)}.partner-check:nth-child(5){--pc:var(--rose)}.partner-check:nth-child(6){--pc:var(--blue)}.partner-check b{color:var(--pc);font-size:13px;text-transform:uppercase;letter-spacing:.06em}.partner-check p{color:#eef4ff;line-height:1.4;font-weight:760}.turn-note{color:var(--muted);font-size:13px}.reveal-btn{border:1px solid rgba(251,191,36,.35);background:rgba(251,191,36,.11);color:var(--amber);border-radius:14px;padding:10px 12px;cursor:pointer;font-weight:900;margin-top:auto}.partner-answer{display:none;color:#dbeafe;background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.22);padding:11px;border-radius:14px;line-height:1.4;font-size:14px}.partner-answer.show{display:block}.partner-check-row{display:flex;align-items:flex-start;gap:9px;background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:14px;padding:10px;color:var(--muted);font-size:13px;line-height:1.35}.partner-check-row input{margin-top:2px;accent-color:#34d399;transform:scale(1.1)}.partner-next{font-size:12px;color:var(--green);font-weight:900;display:none}.partner-next.show{display:block}.practice-shell{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}.question-card,.rationale-card{border-radius:28px;background:rgba(16,22,41,.84);border:1px solid var(--line);box-shadow:var(--shadow);padding:24px;min-height:520px}.question-count{color:var(--cyan);font-size:12px;letter-spacing:.09em;text-transform:uppercase;font-weight:1000;margin-bottom:10px}.scenario-box{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.055);padding:16px;border-radius:18px;color:#dce7f7;line-height:1.55;margin-bottom:18px}.question-text{color:var(--gold);font-weight:1000;font-size:22px;line-height:1.35;margin-bottom:18px;text-shadow:0 0 18px rgba(248,213,107,.18)}.options-grid{display:grid;gap:12px}.answer-btn{border:0;border-radius:18px;padding:16px;color:#071018;font-size:15px;font-weight:900;line-height:1.35;cursor:pointer;text-align:left;box-shadow:0 10px 24px rgba(0,0,0,.22);transition:.18s ease;position:relative;overflow:hidden}.answer-btn:hover{transform:translateY(-2px) scale(1.01)}.answer-btn.selected{outline:4px solid rgba(255,255,255,.85);transform:translateY(-2px) scale(1.015)}.answer-btn.correct-choice{box-shadow:0 0 0 4px rgba(52,211,153,.55),0 12px 28px rgba(52,211,153,.24)}.answer-btn.wrong-choice{box-shadow:0 0 0 4px rgba(251,113,133,.55),0 12px 28px rgba(251,113,133,.20)}.opt-pink{background:linear-gradient(135deg,#f9a8d4,#f472b6)}.opt-blue{background:linear-gradient(135deg,#93c5fd,#60a5fa)}.opt-yellow{background:linear-gradient(135deg,#fde68a,#fbbf24)}.opt-green{background:linear-gradient(135deg,#86efac,#34d399)}.partner-justify{margin-top:16px;border-radius:18px;padding:15px;background:rgba(251,191,36,.10);border:1px solid rgba(251,191,36,.26);color:#f8e7ae;font-weight:800;line-height:1.45}.rationale-placeholder{color:var(--muted);line-height:1.7;padding:20px;border-radius:20px;border:1px dashed rgba(255,255,255,.18);background:rgba(255,255,255,.035)}.result-badge{display:inline-block;padding:8px 13px;border-radius:999px;font-size:12px;font-weight:1000;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}.result-badge.correct{background:rgba(52,211,153,.15);color:var(--green);border:1px solid rgba(52,211,153,.35)}.result-badge.wrong{background:rgba(251,113,133,.15);color:var(--rose);border:1px solid rgba(251,113,133,.35)}.correct-box,.thinking-box,.designer-box,.wrong-box,.teaching-box{border-radius:18px;padding:15px;margin:12px 0;line-height:1.55}.correct-box{background:rgba(52,211,153,.10);border:1px solid rgba(52,211,153,.30)}.thinking-box{background:rgba(34,211,238,.09);border:1px solid rgba(34,211,238,.25)}.designer-box{background:rgba(167,139,250,.10);border:1px solid rgba(167,139,250,.26)}.wrong-box{background:rgba(251,113,133,.09);border:1px solid rgba(251,113,133,.26)}.teaching-box{background:rgba(251,191,36,.10);border:1px solid rgba(251,191,36,.28)}.box-title{font-weight:1000;color:#fff;margin-bottom:7px}.wrong-box ul{padding-left:20px;color:#f7d0d7}.practice-actions{display:flex;justify-content:center;margin-top:20px}.score-chip{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:8px 12px;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.25);color:var(--green);font-weight:900;font-size:13px}.sound-note{font-size:12px;color:var(--muted);margin-top:10px}.footer-note{text-align:center;color:var(--muted);font-size:13px;margin-top:28px}.credit-line{text-align:center;color:rgba(168,179,199,.72);font-size:11px;margin-top:10px;letter-spacing:.02em}@keyframes popIn{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}.pop{animation:popIn .35s ease}@media(max-width:980px){.practice-shell{grid-template-columns:1fr}.question-card,.rationale-card{min-height:auto}.card-grid{grid-template-columns:repeat(2,1fr)}.partner-grid{grid-template-columns:1fr}.hero{padding:24px}}@media(max-width:520px){.card-grid{grid-template-columns:1fr}.flip-card{height:165px}.topbar-inner{align-items:flex-start}.progress-label{text-align:left}.shell{padding:18px 12px 60px}.term{font-size:23px}.question-text{font-size:19px}}
 </style>
 </head>
-
 <body>
-
-<div class="nav">
-<button onclick="showPage(1)" id="b1" class="active">Concept</button>
-<button onclick="showPage(2)" id="b2">Practice</button>
-</div>
-
-<div class="container">
-
-<!-- PAGE 1 -->
-<div id="page1" class="page active">
-<h2>Concept Sprint</h2>
-
-<div class="card">SOAP</div>
-<div class="card">ICD</div>
-<div class="card">CPT</div>
-<div class="card">Medical Necessity</div>
-
-<div class="partner-box">
-<b>When do you code symptoms?</b><br><br>
-Answer, then reveal:
-<br><br>
-<button onclick="this.nextElementSibling.style.display='block'">Reveal</button>
-<div style="display:none;color:#22d3ee;margin-top:10px">
-When no diagnosis is confirmed or when symptoms are not explained.
-</div>
-</div>
-
-</div>
-
-<!-- PAGE 2 -->
-<div id="page2" class="page">
-
-<h2>Practice Questions</h2>
-<p>Read the scenario carefully. Read the question. Choose the best answer.</p>
-
-<div class="practice">
-
-<div class="left">
-<div id="scenario"></div>
-<h3 class="question" id="question"></h3>
-
-<div id="answers"></div>
-
-<button class="next" id="nextBtn" onclick="nextQ()" disabled>Next Question</button>
-</div>
-
-<div class="right" id="rationale">
-Your rationale will appear here.
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div id="confetti"></div>
-
+<header class="topbar"><div class="topbar-inner"><div class="logo"><span class="logo-mark">⚕</span>CBCS Sprint</div><div class="progress-wrap"><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><div class="progress-label" id="progressLabel">0%</div></div><div class="nav"><button class="nav-btn active" id="nav1" onclick="showPage(1)">Concept Sprint</button><button class="nav-btn" id="nav2" onclick="showPage(2)">Practice Questions</button></div></div></header>
+<main class="shell"><section class="hero"><div class="badge">5–10 Minute Warm-Up</div><h1>Billing Readiness Sprint</h1><p class="subtitle">A short, focused warm-up before you complete a claim task. Refresh the core ideas, then test your thinking with partner checks.</p><button class="primary" onclick="showPage(1);document.getElementById('sprint').scrollIntoView({behavior:'smooth'});">Start Concept Sprint</button><button class="secondary" onclick="showPage(2)" style="margin-left:10px">Go to Practice</button><div class="teacher-note"><b>Before you begin:</b> Use this sprint to check what you know, explain your thinking clearly, and prepare for the claim challenge.</div></section>
+<section id="page1" class="page active"><div id="sprint" class="section-head"><div><h2>Page 1: Concept Sprint</h2><p class="hint">Click each flashcard first. Then use the partner checks to test whether you can explain the ideas without looking.</p></div><button class="primary" onclick="showPage(2)">Move to Practice Questions →</button></div><div class="card-grid" id="cardGrid"></div><div class="partner-panel"><div class="partner-head"><h3>Partner Understanding Check</h3><p class="partner-directions"><b>Directions:</b> Partner A asks Questions 1, 3, and 5. Partner B asks Questions 2, 4, and 6. The person answering must speak first. Then click Reveal Answer. After revealing, check whether your partner got it right. If not, fix the answer using the explanation.</p></div><div class="partner-grid" id="partnerGrid"></div></div></section>
+<section id="page2" class="page"><div class="section-head"><div><h2>Page 2: Practice Questions</h2><p class="hint">Choose an answer on the left. Explain your choice to your partner. Then study the rationale on the right before moving to the next question.</p></div><div class="score-chip" id="scoreChip">Score: 0 / 5</div></div><div class="practice-shell"><div class="question-card"><div class="question-count" id="questionCount">Question 1 of 5</div><div class="scenario-box" id="scenarioBox"></div><div class="question-text" id="questionText"></div><div class="options-grid" id="optionsGrid"></div><div class="partner-justify" id="partnerPrompt">Choose an answer, then tell your partner: “I chose this because…”</div><div class="sound-note">Sound plays after you choose an answer.</div></div><div class="rationale-card"><div id="rationalePanel" class="rationale-placeholder">Your rationale will appear here after you choose an answer.</div></div></div><div class="practice-actions"><button class="next-question" id="nextBtn" onclick="nextPracticeQuestion()" disabled>Next Question →</button></div></section><div class="footer-note">Warm up your thinking, then apply it in the challenge.</div><div class="credit-line">All rights reserved. Instructional Design: Hilary Homaii</div></main>
 <script>
-
-/* NAV */
-function showPage(n){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'))
-  document.getElementById('page'+n).classList.add('active')
-}
-
-/* QUESTIONS */
-let index=0
-
-const questions=[
-{
-scenario:"Patient with knee pain after fall.",
-q:"Which coding is correct?",
-options:["Code fracture","Code knee pain","Code screening","Wait for result"],
-correct:1,
-r:"Symptoms are coded when diagnosis is not confirmed."
-},
-{
-scenario:"Insurance card review.",
-q:"Which is most important?",
-options:["RxBIN","Group","Member ID","Copay"],
-correct:2,
-r:"Member ID identifies the patient."
-},
-{
-scenario:"Diabetes visit with exam.",
-q:"What must be verified?",
-options:["Diagnosis supports service","Change code","Delay claim","Remove symptoms"],
-correct:0,
-r:"Diagnosis must support medical necessity."
-},
-{
-scenario:"Deductible met, 20% coinsurance.",
-q:"Patient pays?",
-options:["$200","$40","$0","Copay"],
-correct:1,
-r:"20% of $200 = $40."
-},
-{
-scenario:"Hospital and physician billing.",
-q:"Correct action?",
-options:["Bill together","Delay","Separate billing","Combine codes"],
-correct:2,
-r:"Professional and facility billing must be separate."
-}
-]
-
-function loadQ(){
-  let q=questions[index]
-
-  document.getElementById('scenario').innerText=q.scenario
-  document.getElementById('question').innerText=q.q
-
-  let ans=document.getElementById('answers')
-  ans.innerHTML=""
-
-  ["a","b","c","d"].forEach((cls,i)=>{
-    let btn=document.createElement('button')
-    btn.className="answer "+cls
-    btn.innerText=q.options[i]
-    btn.onclick=()=>selectAnswer(i,btn)
-    ans.appendChild(btn)
-  })
-
-  document.getElementById('nextBtn').disabled=true
-}
-
-function selectAnswer(i,btn){
-  let q=questions[index]
-
-  let buttons=document.querySelectorAll('.answer')
-
-  buttons.forEach((b,idx)=>{
-    b.disabled=true
-
-    if(idx===q.correct){
-      b.classList.add("correct-choice")
-    }
-
-    if(idx===i && i!==q.correct){
-      b.classList.add("wrong-choice")
-    }
-  })
-
-  if(i===q.correct){
-    launchConfetti()
-  }
-
-  document.getElementById('rationale').innerText=q.r
-  document.getElementById('nextBtn').disabled=false
-}
-
-/* CONFETTI */
-function launchConfetti(){
-  let container=document.getElementById('confetti')
-
-  for(let i=0;i<30;i++){
-    let c=document.createElement('div')
-    c.style.left=Math.random()*100+"%"
-    c.style.background=`hsl(${Math.random()*360},100%,50%)`
-    container.appendChild(c)
-
-    setTimeout(()=>c.remove(),1000)
-  }
-}
-
-/* NEXT */
-function nextQ(){
-  index++
-  if(index>=questions.length){
-    document.getElementById('rationale').innerText="Done."
-    return
-  }
-  loadQ()
-}
-
-loadQ()
-
+const cards=[{term:'SOAP Note',color:'var(--cyan)',back:'S = patient reports. O = measurable findings. A = diagnosis or clinical impression. P = treatment, orders, referral, or follow-up.'},{term:'ICD-10-CM Main Term',color:'var(--green)',back:'The main term is the condition, disease, injury, or reason you look up first in the index.'},{term:'ICD-10-CM Subterms',color:'var(--amber)',back:'Subterms add precision: site, side, cause, severity, acute/chronic status, and related complications.'},{term:'Confirmed vs. R/O',color:'var(--rose)',back:'Code confirmed diagnoses. Do not code R/O, possible, suspected, likely, or probable conditions as confirmed in outpatient coding.'},{term:'CPT',color:'var(--purple)',back:'CPT tells what service or procedure was performed: office visit, injection, test, repair, or procedure.'},{term:'Medical Necessity',color:'var(--pink)',back:'Documentation must prove why the service was reasonable, needed, and connected to the diagnosis or clinical findings.'},{term:'Plan Types',color:'var(--orange)',back:'PPO, POS, HMO, and EPO differ by network access, referral expectations, and payer verification rules.'},{term:'Neoplasm Behavior',color:'var(--blue)',back:'Behavior words matter: malignant, benign, in situ, uncertain behavior, and unspecified behavior. Do not infer behavior from fear or family history.'},{term:'Payer Verification',color:'var(--green)',back:'Verify current coverage, network participation, cost-sharing, and payer requirements before claim submission.'}];
+const partnerChecks=[{ask:'Question 1 — Partner A asks',q:'In outpatient coding, should “R/O pneumonia” be coded as confirmed pneumonia? Why or why not?',a:'No. R/O means rule out. In outpatient coding, do not code R/O, possible, suspected, likely, probable, questionable, or evaluate-for conditions as confirmed diagnoses.'},{ask:'Question 2 — Partner B asks',q:'When do you code symptoms instead of a confirmed diagnosis?',a:'Code symptoms when the provider has not confirmed a diagnosis, when the note only documents R/O or suspected conditions, or when the symptom is not fully explained by a confirmed diagnosis.'},{ask:'Question 3 — Partner A asks',q:'What is the difference between PPO, POS, HMO, and EPO plan types?',a:'PPO offers broad flexibility and may allow out-of-network care. POS may combine PCP/referral features with some out-of-network access. HMO is more restrictive and often requires PCP/referrals. EPO generally limits care to in-network providers. Specific payer rules must be verified.'},{ask:'Question 4 — Partner B asks',q:'In SOAP, where does the confirmed diagnosis usually belong?',a:'Assessment. The Assessment contains the provider’s diagnosis, clinical impression, or working conclusion.'},{ask:'Question 5 — Partner A asks',q:'What does medical necessity prove before a claim is submitted?',a:'It proves the service was reasonable and needed because the diagnosis, symptom, exam finding, or clinical reason supports it.'},{ask:'Question 6 — Partner B asks',q:'Pathology says carcinoma in situ of bladder. History says benign lipoma removed. Today’s note says suspected malignant lesion. What behavior words matter, and what should not be coded as confirmed?',a:'Behavior words include malignant, benign, in situ, uncertain behavior, and unspecified behavior. Carcinoma in situ is in situ, not invasive malignant. A benign lipoma is benign. A suspected malignant lesion is not coded as confirmed malignancy in outpatient coding. Uncertain means pathology cannot determine benign vs malignant; unspecified means behavior is not stated.'}];
+const practiceQuestions=[
+{scenario:'A patient presents to a physician’s office for evaluation of persistent knee pain after a minor fall. The provider documents: “Right knee pain after fall. X-ray ordered. No fracture confirmed at this visit.” The insurance plan requires the diagnosis code to support medical necessity for the ordered imaging.',question:'Which diagnosis coding approach supports the claim most appropriately?',options:['Report a fracture diagnosis because the X-ray was ordered to evaluate possible bone injury.','Report the documented knee pain and injury-related reason without coding an unconfirmed fracture.','Report a general screening diagnosis because imaging was performed before confirmation.','Report no diagnosis code until the radiology report confirms the final condition.'],correct:1,correctAnswer:'B. Report the documented knee pain and injury-related reason without coding an unconfirmed fracture.',rationale:'The provider documented knee pain and the reason for the encounter, but the fracture was not confirmed. For outpatient/professional coding, suspected, possible, probable, or rule-out diagnoses are not coded as confirmed conditions. The claim should reflect the symptoms, injury context, or documented reason that supports why the X-ray was medically necessary.',thinking:'Ask yourself: “What did the provider actually confirm?” Then ask: “What diagnosis explains why the service was ordered?” The biller/coder should connect the documented symptom or condition to the procedure without overstating the diagnosis.',lens:'The exam writer is testing whether students understand the relationship between documentation, diagnosis coding, and medical necessity. The trap is assuming that because the provider is checking for a fracture, the coder may code the fracture.',wrong:['A. A fracture diagnosis would overstate the documentation. Ordering an X-ray to investigate a possible fracture does not mean the fracture exists.','C. A screening diagnosis is not appropriate when the patient has symptoms and an injury-related reason for the service.','D. Waiting for a confirmed final condition is unnecessary when symptoms or documented reasons already support the encounter.'],teaching:'Code what is documented and supported; do not code a suspected outpatient diagnosis as confirmed.'},
+{scenario:'A medical biller is reviewing an insurance card before entering information on a CMS-1500 claim. The card lists the member ID, group number, plan name, office visit copay, RxBIN, RxPCN, and pharmacy benefit information. The patient is being seen for an office visit billed on a professional claim.',question:'Which information from the card should the biller prioritize for the professional claim field related to the insured’s identification?',options:['The RxBIN because it routes pharmacy claims to the correct processor.','The group number because it identifies the employer or plan category.','The member ID because it identifies the insured under the health plan.','The office copay because it shows the patient’s expected visit charge.'],correct:2,correctAnswer:'C. The member ID because it identifies the insured under the health plan.',rationale:'The CMS-1500 requires the insured’s identification number in the appropriate claim field, commonly Box 1a. The member ID is used to identify the patient or insured within the medical insurance plan. RxBIN and RxPCN are pharmacy-related routing details, not the main professional claim identifier.',thinking:'Separate “information on the card” from “information required on the medical claim.” Not every item printed on the insurance card belongs on the CMS-1500.',lens:'The exam writer is testing whether students can distinguish insurance card details from claim form data entry. The trap is thinking every number on the card is equally important for medical billing.',wrong:['A. RxBIN is used for pharmacy benefit processing, not for identifying the insured on a CMS-1500 professional claim.','B. The group number may be useful for eligibility or plan identification, but it is not the primary insured ID field.','D. The copay may affect patient responsibility, but it does not identify the insured on the claim form.'],teaching:'Insurance cards contain medical, pharmacy, and cost-sharing information; billers must know which details belong on the professional claim.'},
+{scenario:'A provider documents an established patient visit for uncontrolled type 2 diabetes and performs a medically necessary foot exam due to neuropathy symptoms. The coder selects an E/M code and a diabetes diagnosis code. The payer later questions whether the diagnosis supports the service.',question:'Which review step should the biller perform before submitting the claim?',options:['Confirm that the diagnosis code supports the documented service and payer medical necessity requirements.','Replace the diagnosis with a broader chronic disease code to reduce payer review concerns.','Submit the claim with the procedure code first and add the diagnosis after adjudication.','Remove the neuropathy-related detail because the E/M code already explains the visit.'],correct:0,correctAnswer:'A. Confirm that the diagnosis code supports the documented service and payer medical necessity requirements.',rationale:'Medical necessity connects the diagnosis to the service. The procedure code tells what was done; the diagnosis code explains why it was done. Before submission, the biller should verify that the selected diagnosis accurately reflects provider documentation and supports the billed service under payer rules.',thinking:'Look for the relationship among four things: provider note, diagnosis code, CPT code, and payer policy. A clean claim is not just complete; it must make clinical and billing sense.',lens:'The exam writer is testing whether students understand that reimbursement depends on documentation-supported coding and payer medical necessity rules, not just entering a CPT and ICD-10-CM code.',wrong:['B. A broader code may weaken specificity and may not reflect the provider’s documentation accurately.','C. Diagnosis codes are required on the claim before adjudication; adding them later is not a proper billing workflow.','D. Neuropathy-related documentation may be important because it explains why the foot exam was clinically relevant.'],teaching:'CPT answers “what was done”; ICD-10-CM answers “why it was done.”'},
+{scenario:'A patient has a $1,000 deductible, 20% coinsurance after the deductible, and a $4,000 out-of-pocket maximum. At the time of service, the patient has already met the deductible but has not met the out-of-pocket maximum. The allowed amount for today’s visit is $200.',question:'How should the biller interpret the patient responsibility for this visit?',options:['The patient owes the full $200 because the out-of-pocket maximum has not been met.','The patient owes $40 because coinsurance applies after the deductible is satisfied.','The patient owes nothing because meeting the deductible ends all cost sharing.','The patient owes the copay amount because coinsurance never applies to visits.'],correct:1,correctAnswer:'B. The patient owes $40 because coinsurance applies after the deductible is satisfied.',rationale:'Once the deductible is met, coinsurance applies until the patient reaches the out-of-pocket maximum. Twenty percent of the $200 allowed amount is $40. The provider reimbursement would include payer payment plus patient responsibility according to the plan’s rules.',thinking:'Follow the cost-sharing sequence: deductible first, then coinsurance or copay depending on the plan, then out-of-pocket maximum limits future cost sharing.',lens:'The exam writer is testing whether students can distinguish deductible, coinsurance, allowed amount, patient responsibility, and payer reimbursement.',wrong:['A. The patient would owe the full allowed amount before the deductible is met, not after the deductible has already been satisfied.','C. Meeting the deductible does not usually eliminate all cost sharing; coinsurance may still apply.','D. Some visits may have copays, but this scenario specifically states coinsurance after deductible.'],teaching:'Deductible met does not mean “free care”; it often means coinsurance begins.'},
+{scenario:'A hospital outpatient department provides a facility service, and the physician separately documents a professional evaluation of the same patient. A student biller prepares a CMS-1500 for both the hospital facility charge and the physician’s professional service.',question:'Which correction should be made before claim submission?',options:['Bill both services on the CMS-1500 because the patient received care on the same date.','Hold the physician claim until the facility claim has completed payer adjudication.','Use professional billing for the physician service and facility billing for the hospital charge.','Combine both charges under one CPT line so the payer can separate reimbursement.'],correct:2,correctAnswer:'C. Use professional billing for the physician service and facility billing for the hospital charge.',rationale:'The CMS-1500 is used for professional claims, such as physician or provider services. Facility charges, such as hospital outpatient department services, are generally billed using facility billing processes, commonly the UB-04/CMS-1450. The same date of service does not mean the same claim form is used for every charge.',thinking:'Identify who is billing: provider/professional or hospital/facility. The form depends on the billing entity and service type.',lens:'The exam writer is testing whether students understand professional billing versus facility billing. The trap is assuming that all healthcare charges can be placed on the CMS-1500.',wrong:['A. Same date of service does not determine the claim form. The billing entity and type of service matter.','B. The physician claim does not need to wait simply because a facility claim exists.','D. Combining charges under one CPT line creates inaccurate billing and may cause denial or compliance problems.'],teaching:'CMS-1500 is for professional billing; UB-04/CMS-1450 is used for facility billing.'}];
+let currentPractice=0,score=0,answered=Array(practiceQuestions.length).fill(false);
+function buildCards(){document.getElementById('cardGrid').innerHTML=cards.map((c,i)=>`<div class="flip-card" onclick="flipCard(this);updateProgress()" style="--c:${c.color}"><div class="flip-inner"><div class="face front"><div class="card-num">Concept ${i+1}</div><div class="term">${c.term}</div><div class="tap">Click to flip</div></div><div class="face back"><div class="card-num">Remember</div><p><strong>${c.term}:</strong> ${c.back}</p><div class="tap">Click again</div></div></div></div>`).join('')}
+function buildPartnerChecks(){document.getElementById('partnerGrid').innerHTML=partnerChecks.map((p,i)=>`<div class="partner-check"><b>${p.ask}</b><p>${p.q}</p><div class="turn-note">Answer first. Then reveal and judge.</div><button class="reveal-btn" onclick="revealPartnerAnswer(${i})">Reveal Answer</button><div class="partner-answer" id="partnerAnswer${i}"><b>Correct answer:</b> ${p.a}</div><label class="partner-check-row"><input type="checkbox" onchange="togglePartnerNext(${i},this)"> Did your partner get it right?</label><div class="partner-next" id="partnerNext${i}">${i<partnerChecks.length-1?'Good. Move to the next question.':'Partner check complete.'}</div></div>`).join('')}
+function renderPracticeQuestion(){const q=practiceQuestions[currentPractice];document.getElementById('questionCount').textContent=`Question ${currentPractice+1} of ${practiceQuestions.length}`;document.getElementById('scenarioBox').textContent=q.scenario;document.getElementById('questionText').textContent=q.question;document.getElementById('rationalePanel').className='rationale-placeholder';document.getElementById('rationalePanel').innerHTML='Your rationale will appear here after you choose an answer.';document.getElementById('nextBtn').disabled=true;document.getElementById('nextBtn').textContent=currentPractice===practiceQuestions.length-1?'Finish Practice':'Next Question →';const colors=['opt-pink','opt-blue','opt-yellow','opt-green'];document.getElementById('optionsGrid').innerHTML=q.options.map((opt,i)=>`<button class="answer-btn ${colors[i]}" onclick="selectPracticeAnswer(${i})">${String.fromCharCode(65+i)}. ${opt}</button>`).join('')}
+function selectPracticeAnswer(choice){const q=practiceQuestions[currentPractice];const correct=choice===q.correct;const buttons=document.querySelectorAll('.answer-btn');buttons.forEach((btn,i)=>{btn.disabled=true;btn.classList.remove('selected');if(i===q.correct)btn.classList.add('correct-choice');if(i===choice&&!correct)btn.classList.add('wrong-choice');if(i===choice)btn.classList.add('selected')});if(correct&&!answered[currentPractice]){score++;playTone(880,.12)}else{playTone(250,.18)}answered[currentPractice]=true;updateScore();document.getElementById('rationalePanel').className='pop';document.getElementById('rationalePanel').innerHTML=`<div class="result-badge ${correct?'correct':'wrong'}">${correct?'Correct':'Not Quite'}</div><div class="correct-box"><div class="box-title">Correct Answer</div>${q.correctAnswer}</div><div class="correct-box"><div class="box-title">Rationale</div>${q.rationale}</div><div class="thinking-box"><div class="box-title">How to Think Through It</div>${q.thinking}</div><div class="designer-box"><div class="box-title">Test Designer Lens</div>${q.lens}</div><div class="wrong-box"><div class="box-title">Why the Other Options Are Wrong</div><ul>${q.wrong.map(w=>`<li>${w}</li>`).join('')}</ul></div><div class="teaching-box"><div class="box-title">Teaching Point</div>${q.teaching}</div>`;document.getElementById('nextBtn').disabled=false;updateProgress()}
+function nextPracticeQuestion(){if(currentPractice<practiceQuestions.length-1){currentPractice++;renderPracticeQuestion();window.scrollTo({top:0,behavior:'smooth'})}else{document.getElementById('rationalePanel').className='pop';document.getElementById('rationalePanel').innerHTML=`<div class="correct-box"><div class="box-title">Practice Complete</div>Your score is <b>${score} / ${practiceQuestions.length}</b>.</div><div class="thinking-box"><div class="box-title">Partner Reflection</div>Tell your partner one question that made you slow down and one concept you need to review.</div>`;document.getElementById('nextBtn').disabled=true;document.getElementById('nextBtn').textContent='Practice Complete'}}
+function flipCard(el){el.classList.toggle('flipped');el.dataset.seen='true'}function revealPartnerAnswer(i){document.getElementById('partnerAnswer'+i).classList.toggle('show')}function togglePartnerNext(i,box){document.getElementById('partnerNext'+i).classList.toggle('show',box.checked);updateProgress()}function showPage(n){document.getElementById('page1').classList.toggle('active',n===1);document.getElementById('page2').classList.toggle('active',n===2);document.getElementById('nav1').classList.toggle('active',n===1);document.getElementById('nav2').classList.toggle('active',n===2);window.scrollTo({top:0,behavior:'smooth'});updateProgress()}function updateScore(){document.getElementById('scoreChip').textContent=`Score: ${score} / ${practiceQuestions.length}`}function updateProgress(){const seenCards=document.querySelectorAll('.flip-card[data-seen="true"]').length;const checkedPartners=document.querySelectorAll('.partner-check-row input:checked').length;const practiceDone=answered.filter(Boolean).length;const total=cards.length+partnerChecks.length+practiceQuestions.length;const done=seenCards+checkedPartners+practiceDone;const pct=Math.round((done/total)*100);document.getElementById('progressFill').style.width=pct+'%';document.getElementById('progressLabel').textContent=pct+'%'}function playTone(freq,duration){try{const AudioContext=window.AudioContext||window.webkitAudioContext;const ctx=new AudioContext();const oscillator=ctx.createOscillator();const gain=ctx.createGain();oscillator.connect(gain);gain.connect(ctx.destination);oscillator.frequency.value=freq;gain.gain.value=.055;oscillator.start();oscillator.stop(ctx.currentTime+duration)}catch(e){}}buildCards();buildPartnerChecks();renderPracticeQuestion();updateScore();updateProgress();
 </script>
-
 </body>
 </html>
